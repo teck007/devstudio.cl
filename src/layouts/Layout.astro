@@ -1,0 +1,82 @@
+---
+import Navbar from "../components/Navbar.astro";
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Página web de Devstudio, desarrollo de soluciones a tu medida" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<ViewTransitions />
+	</head>
+	<body>
+		<Navbar
+			title="Devstudio"
+			menu={[
+				{
+					name: "Identidad",
+					href: "/#about",
+				},
+				{
+					name: "Servicios",
+					href: "/#services",
+				},
+				{
+					name: "Contáctanos",
+					href: "/contact",
+				},
+			]}
+		/>
+		<div class="min-h-screen flex flex-col">
+			<slot />
+		</div>
+		
+	</body>
+</html>
+<style is:global>
+	:root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+	html {
+		font-family: system-ui, sans-serif;
+		scroll-behavior: smooth;
+		width: 100%;
+		overflow-x: hidden;
+	}
+	body {
+		margin: 0;
+		padding: 0;
+		width: 100vw; 
+
+	}
+	code {
+		font-family:
+			Menlo,
+			Monaco,
+			Lucida Console,
+			Liberation Mono,
+			DejaVu Sans Mono,
+			Bitstream Vera Sans Mono,
+			Courier New,
+			monospace;
+	}
+</style>

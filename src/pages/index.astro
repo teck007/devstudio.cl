@@ -1,0 +1,149 @@
+---
+import Layout from "../layouts/Layout.astro";
+import About from "../components/Widget.astro";
+import Services from "../components/Slide.astro";
+import Footer from "../components/Footer.astro";
+import handIcon from "../assets/icons/hand-thumb-up.astro";
+import lightIcon from "../assets/icons/light-bulb.astro";
+import usersIcon from "../assets/icons/users.astro";
+import userCircle from "../assets/icons/user-circle.astro";
+import computer from "../assets/icons/computer.astro";
+import learning from "../assets/icons/learning.astro";
+---
+
+<Layout title="Devstudio">
+	<main
+		class="flex flex-col items-center justify-center mx-auto h-screen w-full"
+	>
+		<div class="text-center text-xl text-balance">
+			<h1 class="pt-6 text-center text-6xl text-black font-bold p-1.5">
+				<p class="">
+					Desarrollo de <span class="rotating-text"></span>
+				</p><p class="text-main2">a tu medida</p>
+			</h1>
+			<p class="mt-4 max-w-3xl text-2xl">
+				En <span class="font-semibold">Devstudio</span> te ayudamos a crear
+				sitios web y sistemas, que hacen posible todo lo que necesitas para
+				tu empresa.
+			</p>
+		</div>
+		<div class="mt-8">
+			<img
+				src=`/images/dev.webp`
+				id="devImage"
+				class="mx-auto w-3/6"
+				alt=""
+			/>
+		</div>
+	</main>
+	<About
+		title="Nuestra identidad"
+		description="Somos una startup de desarrollo de software formada por jóvenes apasionados por la tecnología, la creatividad y la solución de problemas del mundo real. Cada integrante aporta su experiencia única, desde el backend hasta el diseño, trabajando en un ambiente dinámico y de colaboración continua."
+		items={[
+			{
+				title: "Innovación y creatividad:",
+				description:
+					"Nuestro equipo se esfuerza por proponer soluciones únicas y disruptivas, abordando problemas cotidianos desde nuevas perspectivas.",
+				icon: lightIcon,
+			},
+			{
+				title: "Adaptabilidad:",
+				description:
+					"Capacidad para adaptarse rápidamente a cambios en tendencias tecnológicas, herramientas y metodologías de trabajo.",
+				icon: handIcon,
+			},
+			{
+				title: "Cultura colaborativa:",
+				description:
+					"Enfoque en el trabajo en equipo, donde cada miembro aporta sus habilidades únicas para un objetivo común.",
+				icon: usersIcon,
+			},
+			{
+				title: "Orientación al cliente:",
+				description:
+					"Diseño de productos centrados en las necesidades reales de los usuarios, priorizando experiencias intuitivas y eficaces.",
+				icon: userCircle,
+			},
+			{
+				title: "Tecnología moderna:",
+				description:
+					"Utilización de herramientas de desarrollo actuales, como frameworks avanzados, servicios en la nube y metodologías ágiles.",
+				icon: computer,
+			},
+			{
+				title: "Aprendizaje continuo:",
+				description:
+					"Compromiso con la formación constante para mantenerse al día en un sector en constante evolución.",
+				icon: learning,
+			},
+		]}
+	/>
+</Layout>
+<Services
+	title="Nuestros servicios"
+	items={[
+		{
+			image: "/images/slide1.webp",
+			description:
+				"Desarrollo de páginas web personalizadas para tu negocio.",
+		},
+		{
+			image: "/images/slide2.webp",
+			description:
+				"Desarrollo utilizando las últimas tecnologías de desarrollo web.",
+		},
+		{
+			image: "/images/slide3.webp",
+			description:
+				"Realizamos todo el trabajo hasta que tu página web esté activa y funcionando.",
+		},
+	]}
+/>
+<Footer />
+<style>
+	body {
+		background-color: white;
+	}
+	#devImage {
+		animation: input 2s ease-in-out;
+	}
+	@keyframes input {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+	/* Contenedor del texto rotativo */
+	.rotating-text {
+		display: inline-block;
+		position: relative;
+		/* animation: rotateText 30s ease-in-out; */
+		white-space: nowrap;
+	}
+
+	/* Keyframes para cambiar el texto */
+	@keyframes rotateText {
+		0%, 20% {
+			content: "soluciones";
+		}
+		20%, 40% {
+			content: "proyectos";
+		}
+		40%, 60% {
+			content: "sitios web";
+		}
+		60%, 80% {
+			content: "Software";
+		}
+		80%, 100% {
+			content: "soluciones";
+		}
+	}
+
+	.rotating-text::after {
+		content: "soluciones";
+		animation: rotateText 20s ease-in-out infinite;
+	}
+</style>
