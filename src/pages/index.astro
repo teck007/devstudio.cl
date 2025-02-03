@@ -31,7 +31,7 @@ import learning from "../assets/icons/learning.astro";
 			<img
 				src=`/images/dev.webp`
 				id="devImage"
-				class="mx-auto w-3/6"
+				class="mx-auto xl:w-4/6 sm:w-3/6"
 				alt=""
 			/>
 		</div>
@@ -105,8 +105,14 @@ import learning from "../assets/icons/learning.astro";
 		background-color: white;
 	}
 	#devImage {
-		animation: input 2s ease-in-out;
+		animation: input 1s ease-in-out;
+		
 	}
+	@media (max-height: 750px) or (max-width: 640px) {
+                #devImage {
+                    display: none;
+                }
+            }
 	@keyframes input {
 		0% {
 			opacity: 0;
@@ -126,19 +132,19 @@ import learning from "../assets/icons/learning.astro";
 	/* Keyframes para cambiar el texto */
 	@keyframes rotateText {
 		0%, 20% {
-			content: "soluciones";
+			content: "Soluciones";
 		}
 		20%, 40% {
-			content: "proyectos";
+			content: "Proyectos";
 		}
 		40%, 60% {
-			content: "sitios web";
+			content: "Sitios web";
 		}
 		60%, 80% {
 			content: "Software";
 		}
 		80%, 100% {
-			content: "soluciones";
+			content: "Soluciones";
 		}
 	}
 
