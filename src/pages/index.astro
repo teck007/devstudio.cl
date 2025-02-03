@@ -19,19 +19,19 @@ import learning from "../assets/icons/learning.astro";
 			<h1 class="pt-6 text-center text-6xl text-black font-bold p-1.5">
 				<p class="">
 					Desarrollo de <span class="rotating-text"></span>
-				</p><p class="text-main2">a tu medida</p>
+				</p>
+				<p class="text-main2">a tu medida</p>
 			</h1>
-			<p class="mt-4 max-w-3xl text-2xl">
-				En <span class="font-semibold">Devstudio</span> te ayudamos a crear
-				sitios web y sistemas, que hacen posible todo lo que necesitas para
-				tu empresa.
+			<p class="mt-2 max-w-6xl text-2xl text-gray-800 m-4">
+				En <span class="font-semibold">Devstudio</span> creamos sitios web
+				y Software la medida de tu empresa.
 			</p>
 		</div>
 		<div class="mt-8">
 			<img
 				src=`/images/dev.webp`
 				id="devImage"
-				class="mx-auto xl:w-4/6 sm:w-3/6"
+				class="mx-auto xl:w-4/6 sm:w-3/6 w-1/2"
 				alt=""
 			/>
 		</div>
@@ -106,13 +106,12 @@ import learning from "../assets/icons/learning.astro";
 	}
 	#devImage {
 		animation: input 1s ease-in-out;
-		
 	}
-	@media (max-height: 750px) or (max-width: 640px) {
-                #devImage {
-                    display: none;
-                }
-            }
+	@media (max-height: 700px) or (max-width: 400px) {
+		#devImage {
+			display: none;
+		}
+	}
 	@keyframes input {
 		0% {
 			opacity: 0;
@@ -131,19 +130,24 @@ import learning from "../assets/icons/learning.astro";
 
 	/* Keyframes para cambiar el texto */
 	@keyframes rotateText {
-		0%, 20% {
+		0%,
+		20% {
 			content: "Soluciones";
 		}
-		20%, 40% {
+		20%,
+		40% {
 			content: "Proyectos";
 		}
-		40%, 60% {
+		40%,
+		60% {
 			content: "Sitios web";
 		}
-		60%, 80% {
+		60%,
+		80% {
 			content: "Software";
 		}
-		80%, 100% {
+		80%,
+		100% {
 			content: "Soluciones";
 		}
 	}
