@@ -19,19 +19,19 @@ import learning from "../assets/icons/learning.astro";
 			<h1 class="pt-6 text-center text-6xl text-black font-bold p-1.5">
 				<p class="">
 					Desarrollo de <span class="rotating-text"></span>
-				</p><p class="text-main2">a tu medida</p>
+				</p>
+				<p class="text-main2">a tu medida</p>
 			</h1>
-			<p class="mt-4 max-w-3xl text-2xl">
-				En <span class="font-semibold">Devstudio</span> te ayudamos a crear
-				sitios web y sistemas, que hacen posible todo lo que necesitas para
-				tu empresa.
+			<p class="mt-2 max-w-6xl text-2xl text-gray-800 m-4">
+				En <span class="font-semibold">Devstudio</span> creamos sitios web
+				y Software a la medida de tu empresa.
 			</p>
 		</div>
 		<div class="mt-8">
 			<img
 				src=`/images/dev.webp`
 				id="devImage"
-				class="mx-auto w-3/6"
+				class="mx-auto xl:w-4/6 sm:w-3/6 w-1/2"
 				alt=""
 			/>
 		</div>
@@ -90,12 +90,12 @@ import learning from "../assets/icons/learning.astro";
 		{
 			image: "/images/slide2.webp",
 			description:
-				"Desarrollo utilizando las últimas tecnologías de desarrollo web.",
+				"Desarrollo web utilizando las últimas tecnologías.",
 		},
 		{
 			image: "/images/slide3.webp",
 			description:
-				"Realizamos todo el trabajo hasta que tu página web esté activa y funcionando.",
+				"Tú solo cuéntanos tu idea, nosotros hacemos el resto hasta que tu página esté en línea y operativa.",
 		},
 	]}
 />
@@ -105,7 +105,12 @@ import learning from "../assets/icons/learning.astro";
 		background-color: white;
 	}
 	#devImage {
-		animation: input 2s ease-in-out;
+		animation: input 1s ease-in-out;
+	}
+	@media (max-height: 700px) or (max-width: 400px) {
+		#devImage {
+			display: none;
+		}
 	}
 	@keyframes input {
 		0% {
@@ -119,26 +124,30 @@ import learning from "../assets/icons/learning.astro";
 	.rotating-text {
 		display: inline-block;
 		position: relative;
-		/* animation: rotateText 30s ease-in-out; */
 		white-space: nowrap;
 	}
 
 	/* Keyframes para cambiar el texto */
 	@keyframes rotateText {
-		0%, 20% {
-			content: "soluciones";
+		0%,
+		20% {
+			content: "Soluciones";
 		}
-		20%, 40% {
-			content: "proyectos";
+		20%,
+		40% {
+			content: "Proyectos";
 		}
-		40%, 60% {
-			content: "sitios web";
+		40%,
+		60% {
+			content: "Sitios web";
 		}
-		60%, 80% {
+		60%,
+		80% {
 			content: "Software";
 		}
-		80%, 100% {
-			content: "soluciones";
+		80%,
+		100% {
+			content: "Soluciones";
 		}
 	}
 
