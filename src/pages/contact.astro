@@ -2,8 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 const apiUrl = import.meta.env.PUBLIC_API_URL;
 ---
-<script>
-  const apiUrl = import.meta.env.PUBLIC_API_URL;
+<script define:vars={{apiUrl}}>
   function sendForm(event) {
     event.preventDefault();
     const form = event.target;
@@ -13,14 +12,31 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
       method: "POST",
       body: formData,
     })
-      .then((response) => response.json())
-      .then((data) => console.log("Respuesta del servidor:", data))
-      .catch((error) => console.error("Error en la solicitud:", error));
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Respuesta del servidor:", data);
+        form.reset();
+        alert("Mensaje enviado exitosamente");
+      })
+      .catch((error) => {
+        console.error("Error en la solicitud:", error);
+        alert("Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.");
+      });
   }
+
   document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("contact").addEventListener("submit", sendForm);
+    const form = document.getElementById("contact");
+    if (form) {
+      form.addEventListener("submit", sendForm);
+    }
   });
 </script>
+
 <Layout title="Devstudio">
   <div class="h-screen bg-main1 flex items-center justify-center">
     <form
@@ -31,9 +47,9 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
         Contáctanos
       </h2>
       <div class="mb-4">
-        <label for="name" class="block text-gray-700 font-medium mb-2"
-          >Nombre</label
-        >
+        <label for="name" class="block text-gray-700 font-medium mb-2">
+          Nombre
+        </label>
         <input
           type="text"
           id="name"
@@ -44,9 +60,9 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
         />
       </div>
       <div class="mb-4">
-        <label for="email" class="block text-gray-700 font-medium mb-2"
-          >Correo Electrónico</label
-        >
+        <label for="email" class="block text-gray-700 font-medium mb-2">
+          Correo Electrónico
+        </label>
         <input
           type="email"
           id="email"
@@ -57,9 +73,9 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
         />
       </div>
       <div class="mb-4">
-        <label for="message" class="block text-gray-700 font-medium mb-2"
-          >Mensaje</label
-        >
+        <label for="message" class="block text-gray-700 font-medium mb-2">
+          Mensaje
+        </label>
         <textarea
           id="message"
           name="message"
@@ -71,7 +87,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
       </div>
       <div class="flex justify-center">
         <button
-          type="submit"
+          
           class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors"
         >
           Enviar Mensaje
