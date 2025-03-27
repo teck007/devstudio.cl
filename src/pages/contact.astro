@@ -2,40 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 const apiUrl = import.meta.env.PUBLIC_API_URL;
 ---
-<script define:vars={{apiUrl}}>
-  function sendForm(event) {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-
-    fetch(apiUrl, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Respuesta del servidor:", data);
-        form.reset();
-        alert("Mensaje enviado exitosamente");
-      })
-      .catch((error) => {
-        console.error("Error en la solicitud:", error);
-        alert("Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.");
-      });
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("contact");
-    if (form) {
-      form.addEventListener("submit", sendForm);
-    }
-  });
-</script>
 
 <Layout title="Devstudio">
   <div class="h-screen bg-main1 flex items-center justify-center">
@@ -87,7 +53,6 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
       </div>
       <div class="flex justify-center">
         <button
-          
           class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors"
         >
           Enviar Mensaje
@@ -96,3 +61,41 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
     </form>
   </div>
 </Layout>
+
+<script define:vars={{ apiUrl }}>
+  function sendForm(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    fetch(apiUrl, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Respuesta del servidor:", data);
+        form.reset();
+        alert("Mensaje enviado exitosamente");
+      })
+      .catch((error) => {
+        console.error("Error en la solicitud:", error);
+        alert(
+          "Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.",
+        );
+      });
+  }
+  function init() {
+    const form = document.getElementById("contact");
+    if (form) {
+      form.addEventListener("submit", sendForm);
+    }
+  }
+  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("astro:after-swap", init);
+</script>
