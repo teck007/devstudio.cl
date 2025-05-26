@@ -9,6 +9,11 @@ import usersIcon from "../assets/icons/users.astro";
 import userCircle from "../assets/icons/user-circle.astro";
 import computer from "../assets/icons/computer.astro";
 import learning from "../assets/icons/learning.astro";
+import { Image } from 'astro:assets';
+import Dev from "../assets/dev.webp";
+import Slide1 from "../assets/slide1.webp";
+import Slide2 from "../assets/slide2.webp";
+import Slide3 from "../assets/slide3.webp";
 ---
 
 <Layout title="Devstudio">
@@ -28,12 +33,7 @@ import learning from "../assets/icons/learning.astro";
 			</p>
 		</div>
 		<div class="mt-8">
-			<img
-				src=`/images/dev.webp`
-				id="devImage"
-				class="mx-auto xl:w-4/6 sm:w-3/6 w-1/2"
-				alt=""
-			/>
+			<Image src={Dev} alt="dev programming" class="mx-auto xl:w-4/6 sm:w-3/6 w-1/2"/>
 		</div>
 	</main>
 	<About
@@ -83,16 +83,16 @@ import learning from "../assets/icons/learning.astro";
 	title="Nuestros servicios"
 	items={[
 		{
-			image: "/images/slide1.webp",
+			image: Slide1,
 			description:
 				"Desarrollo de páginas web personalizadas para tu negocio.",
 		},
 		{
-			image: "/images/slide2.webp",
+			image: Slide2,
 			description: "Desarrollo web utilizando las últimas tecnologías.",
 		},
 		{
-			image: "/images/slide3.webp",
+			image: Slide3,
 			description:
 				"Tú solo cuéntanos tu idea, nosotros hacemos el resto hasta que tu página esté en línea y operativa.",
 		},
