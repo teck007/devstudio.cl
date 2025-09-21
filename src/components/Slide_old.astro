@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+const {
+  title = await Astro.slots.render("title"),
+  items = [],
+} = Astro.props;
+---
+
+<section id="services" class="bg-main4 text-white py-12 shadow-custom">
+  <h2 class="text-4xl font-bold text-center mb-6">
+    {title}
+  </h2>
+  <div class="slider-container">
+    <div class="slider">
+      {
+        items.map((item) => (
+          <div class="slider-item">
+            <Image src={item.image} alt="" class="slider-image" />
+            <p class="slider-description">{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+    </div>
+</section>
+
+<style>
+  /* Contenedor para ocultar el desbordamiento */
+  .slider-container {
+    overflow: hidden;
+    width: 100%;
+    max-height: auto; /* Ajusta la altura según sea necesario */
+    position: relative;
+  }
+
+  /* Slider que contiene las imágenes y descripciones */
+  .slider {
+    display: flex;
+    width: 300%; /* Ajusta según el número de imágenes */
+    animation: slide 15s infinite;
+  }
+
+  /* Cada elemento del slider */
+  .slider-item {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    height: auto;
+    width: calc(100% / 3); /* Ajusta según el número de imágenes */
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Imagen en el slider */
+  .slider-image {
+    height: 30vh;
+    width: auto;
+    border-radius: 2%;
+    min-height: fit-content;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+  }
+
+  /* Descripción asociada a la imagen */
+  .slider-description {
+    position: relative;
+    top: -150px;
+    margin-left: 1em;
+    margin-right: 1em;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Animación del deslizamiento */
+  @keyframes slide {
+    0%, 20% {
+      transform: translateX(0%);
+    }
+    25%, 45% {
+      transform: translateX(-33.3%);
+    }
+    50%, 70% {
+      transform: translateX(-33.3%);
+    }
+    75%, 95% {
+      transform: translateX(-66.6%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+</style>

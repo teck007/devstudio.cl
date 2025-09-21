@@ -7,7 +7,7 @@ export default {
 				main1: '#3A3360',
 				main2: '#6F6B95',
 				main3: '#7566CB',
-				main4: '#5F5C79',
+				main4: '#062337',
 			},
 		},
 		boxShadow: {
