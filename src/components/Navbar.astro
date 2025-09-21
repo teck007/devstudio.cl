@@ -4,13 +4,16 @@ const {
   menu = [],
 } = Astro.props;
 ---
-<navbar class="navbar flex justify-center">
-  <div class="flex justify-center items-center rounded-lg backdrop-blur-md w-fit fixed z-50">
+<navbar class="navbar">
+  <div class="navbar-left">
+    <a href="/" class="logo">{ title }</a>
+  </div>
+  <div class="navbar-right flex justify-center items-center">
     <div class="menu">
       {menu.map (({name, href}) => (
-    <a class="text-xl md:text-2xl font-semibold text-white group-aria-selected:bg-clip-text
-    group-aria-selected:text-transparent group-aria-selected:bg-blue-400 
-    transition duration-300 border-b-2 border-transparent link" href={`${href}`}>{name}</a>
+        <a class="text-base font-normal text-astro-gray-200 group-aria-selected:bg-clip-text 
+        group-aria-selected:text-transparent group-aria-selected:bg-blue-purple-gradient 
+        transition duration-300" href=`${href}` class="link">{name}</a>
       ))}
     </div>
   </div>
@@ -21,17 +24,31 @@ const {
     display: flex;
     gap: 1rem;
   }
-  .link {
-    transition: all 0.2s;
-    border: 2px solid transparent;
-    border-radius: 0.75rem;
-    padding: 0.25rem 0.75rem;
-    position: relative;
+  .navbar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    backdrop-filter: blur(3px); /* Nivel de desenfoque */
+    background-color: rgba(255, 255, 255, 0.8);   
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    z-index: 1000; 
+    position: fixed;
+    top: 0;
   }
-  .link:hover {
-    border-color: #60a5fa; /* blue-400 */
-    background: rgba(96, 165, 250, 0.08);
-    box-shadow: 0 2px 8px rgba(96, 165, 250, 0.15);
+  .navbar-left {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+  }
+  .navbar-right {
+    margin-left: 5%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
 </style>

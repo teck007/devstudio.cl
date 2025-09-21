@@ -10,14 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.3.1",
     "@astrojs/tailwind": "^6.0.2",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
-    "astro": "^5.13.8",
-    "iconoir-react": "^7.11.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "astro": "^5.7.14",
     "tailwindcss": "^3.4.4",
     "tslib": "^2.8.1"
   },
