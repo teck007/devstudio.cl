@@ -5,17 +5,27 @@ const {
 } = Astro.props;
 ---
 <navbar class="navbar flex justify-center">
-  <div class="flex justify-center items-center rounded-lg backdrop-blur-md w-fit fixed z-50">
+  <div  id="navbar" class="flex justify-center items-center rounded-2xl backdrop-blur-md w-fit fixed z-50">
     <div class="menu">
       {menu.map (({name, href}) => (
     <a class="text-xl md:text-2xl font-semibold text-white group-aria-selected:bg-clip-text
-    group-aria-selected:text-transparent group-aria-selected:bg-blue-400 
+    group-aria-selected:text-transparent 
     transition duration-300 border-b-2 border-transparent link" href={`${href}`}>{name}</a>
       ))}
     </div>
   </div>
 </navbar>
-
+<script>
+  // Efecto del menú al hacer scroll
+  window.addEventListener('scroll', function() {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 10) {
+          nav.classList.add('border-b-2', 'border-x-2', 'border-gray-600');
+      } else {
+          nav.classList.remove('border-b-2', 'border-x-2', 'border-gray-600');
+      }
+  });
+  </script>
 <style>
   .menu {
     display: flex;
