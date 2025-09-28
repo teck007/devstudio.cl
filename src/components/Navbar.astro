@@ -4,51 +4,190 @@ const {
   menu = [],
 } = Astro.props;
 ---
-<navbar class="navbar">
-  <div class="navbar-left">
-    <a href="/" class="logo">{ title }</a>
-  </div>
-  <div class="navbar-right flex justify-center items-center">
-    <div class="menu">
+
+<navbar class="navbar flex justify-center">
+  <div id="navbar" class="flex justify-center items-center rounded-2xl backdrop-blur-md w-fit fixed z-50">
+    <!-- Menú desktop -->
+    <div class="menu hidden md:flex">
       {menu.map (({name, href}) => (
-        <a class="text-base font-normal text-astro-gray-200 group-aria-selected:bg-clip-text 
-        group-aria-selected:text-transparent group-aria-selected:bg-blue-purple-gradient 
-        transition duration-300" href=`${href}` class="link">{name}</a>
+    <a class="text-xl md:text-2xl font-semibold text-white group-aria-selected:bg-clip-text
+    group-aria-selected:text-transparent 
+    transition duration-300 border-b-2 border-transparent link" href={`${href}`}>{name}</a>
+      ))}
+    </div>
+    
+    <!-- Botón hamburguesa para móvil -->
+    <button id="mobile-menu-button" class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+  
+  <!-- Menú móvil desplegable -->
+  <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 w-full h-screen bg-black/90 backdrop-blur-md z-40 transform -translate-y-full transition-transform duration-300 ease-in-out">
+    <div class="flex flex-col items-center justify-center h-full space-y-8">
+      {menu.map (({name, href}) => (
+        <a class="text-3xl font-semibold text-white hover:text-blue-400 transition-colors duration-300 mobile-link" href={`${href}`}>{name}</a>
       ))}
     </div>
   </div>
 </navbar>
 
+<script>
+  // Efecto del menú al hacer scroll
+  window.addEventListener('scroll', function() {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 10) {
+          nav.classList.add('border-b-2', 'border-x-2', 'border-gray-600');
+      } else {
+          nav.classList.remove('border-b-2', 'border-x-2', 'border-gray-600');
+      }
+  });
+
+  // Control del menú móvil
+  document.addEventListener('astro:page-load', function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button') as HTMLButtonElement;
+    const mobileMenu = document.getElementById('mobile-menu') as HTMLDivElement;
+    const hamburgerLines = mobileMenuButton.querySelectorAll('.hamburger-line') as NodeListOf<HTMLElement>;
+    
+    let isMenuOpen = false;
+    
+    mobileMenuButton.addEventListener('click', function() {
+      isMenuOpen = !isMenuOpen;
+      
+      if (isMenuOpen) {
+        // Abrir menú
+        mobileMenu.classList.remove('-translate-y-full');
+        mobileMenu.classList.add('translate-y-0');
+        
+        // Animar líneas del hamburguesa
+        hamburgerLines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        hamburgerLines[1].style.opacity = '0';
+        hamburgerLines[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+        
+        // Prevenir scroll del body
+        document.body.style.overflow = 'hidden';
+      } else {
+        // Cerrar menú
+        mobileMenu.classList.remove('translate-y-0');
+        mobileMenu.classList.add('-translate-y-full');
+        
+        // Resetear líneas del hamburguesa
+        hamburgerLines[0].style.transform = 'none';
+        hamburgerLines[1].style.opacity = '1';
+        hamburgerLines[2].style.transform = 'none';
+        
+        // Restaurar scroll del body
+        document.body.style.overflow = 'auto';
+      }
+    });
+    
+    // Cerrar menú al hacer clic en un enlace
+    const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        isMenuOpen = false;
+        mobileMenu.classList.remove('translate-y-0');
+        mobileMenu.classList.add('-translate-y-full');
+        
+        // Resetear líneas del hamburguesa
+        hamburgerLines[0].style.transform = 'none';
+        hamburgerLines[1].style.opacity = '1';
+        hamburgerLines[2].style.transform = 'none';
+        
+        // Restaurar scroll del body
+        document.body.style.overflow = 'auto';
+      });
+    });
+    
+    // Cerrar menú al hacer clic fuera de él
+    mobileMenu.addEventListener('click', function(e) {
+      if (e.target === mobileMenu) {
+        isMenuOpen = false;
+        mobileMenu.classList.remove('translate-y-0');
+        mobileMenu.classList.add('-translate-y-full');
+        
+        // Resetear líneas del hamburguesa
+        hamburgerLines[0].style.transform = 'none';
+        hamburgerLines[1].style.opacity = '1';
+        hamburgerLines[2].style.transform = 'none';
+        
+        // Restaurar scroll del body
+        document.body.style.overflow = 'auto';
+      }
+    });
+  });
+</script>
+
 <style>
   .menu {
-    display: flex;
+    display: none;
     gap: 1rem;
   }
-  .navbar {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background-color: #fff;
-    backdrop-filter: blur(3px); /* Nivel de desenfoque */
-    background-color: rgba(255, 255, 255, 0.8);   
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    z-index: 1000; 
-    position: fixed;
-    top: 0;
+  
+  @media (min-width: 768px) {
+    .menu {
+      display: flex;
+    }
   }
-  .navbar-left {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #000;
-    text-decoration: none;
+  
+  .link {
+    transition: all 0.2s;
+    border: 2px solid transparent;
+    border-radius: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    position: relative;
   }
-  .navbar-right {
-    margin-left: 5%;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  
+  .link:hover {
+    border-color: #60a5fa; /* blue-400 */
+    background: rgba(96, 165, 250, 0.08);
+    box-shadow: 0 2px 8px rgba(96, 165, 250, 0.15);
   }
-
+  
+  /* Estilos del botón hamburguesa */
+  .hamburger-line {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    border-radius: 2px;
+  }
+  
+  /* Estilos del menú móvil */
+  .mobile-menu {
+    backdrop-filter: blur(10px);
+  }
+  
+  .mobile-link {
+    opacity: 0;
+    animation: fadeInUp 0.3s ease-out forwards;
+  }
+  
+  .mobile-link:nth-child(1) { animation-delay: 0.1s; }
+  .mobile-link:nth-child(2) { animation-delay: 0.2s; }
+  .mobile-link:nth-child(3) { animation-delay: 0.3s; }
+  .mobile-link:nth-child(4) { animation-delay: 0.4s; }
+  .mobile-link:nth-child(5) { animation-delay: 0.5s; }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Animación suave para el botón hamburguesa */
+  #mobile-menu-button {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #mobile-menu-button:hover {
+    transform: scale(1.1);
+  }
 </style>

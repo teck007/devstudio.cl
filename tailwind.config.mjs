@@ -4,10 +4,9 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				main1: '#3A3360',
-				main2: '#6F6B95',
+				main1: '#062337',
+				main2: '#0B3E60',
 				main3: '#7566CB',
-				main4: '#5F5C79',
 			},
 		},
 		boxShadow: {
