@@ -4,51 +4,192 @@ const {
   menu = [],
 } = Astro.props;
 ---
-<navbar class="navbar">
-  <div class="navbar-left">
-    <a href="/" class="logo">{ title }</a>
+
+<navbar class="navbar flex justify-center">
+  <div id="navbar" class="fixed left-0 right-0 mx-auto max-w-3xl w-auto z-50 rounded-2xl backdrop-blur-md bg-gradient-to-br from-black/20 to-black/10 border border-white/10 shadow-lg">
+    <div class="navbar-inner flex items-center justify-center gap-6 w-full px-4 py-2">
+
+      <!-- Menú desktop -->
+      <nav class="menu hidden md:flex flex-1 justify-center gap-6">
+        {menu.map(({ name, href }) => (
+          <a class="text-lg md:text-2xl font-semibold text-white transition duration-300 border-b-2 border-transparent link" href={`${href}`}>{name}</a>
+        ))}
+      </nav>
+
+      <!-- Actions (mobile hamburguer) -->
+      <div class="actions flex items-center flex-0">
+        <button id="mobile-menu-button" class="md:hidden flex flex-col justify-center items-center w-9 h-9 space-y-1" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
   </div>
-  <div class="navbar-right flex justify-center items-center">
-    <div class="menu">
-      {menu.map (({name, href}) => (
-        <a class="text-base font-normal text-astro-gray-200 group-aria-selected:bg-clip-text 
-        group-aria-selected:text-transparent group-aria-selected:bg-blue-purple-gradient 
-        transition duration-300" href=`${href}` class="link">{name}</a>
+  
+  <!-- Menú móvil desplegable -->
+  <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 w-full h-screen bg-black/90 backdrop-blur-md z-40 transform -translate-y-full opacity-0 scale-98 transition-all duration-300 ease-in-out">
+    <div class="flex flex-col items-center justify-center h-full space-y-8">
+      {menu.map(({ name, href }) => (
+        <a class="text-3xl font-semibold text-white hover:text-blue-400 transition-colors duration-300 mobile-link" href={`${href}`}>{name}</a>
       ))}
     </div>
   </div>
 </navbar>
+<script>
+  // Efecto del menú al hacer scroll (añade/quita border)
+  window.addEventListener('scroll', function () {
+    const nav = document.getElementById('navbar');
+    if (!nav) return;
+    if (window.scrollY > 10) {
+      nav.classList.add('border-b-2', 'border-gray-600');
+    } else {
+      nav.classList.remove('border-b-2', 'border-gray-600');
+    }
+  });
+
+  // Control del menú móvil — usa clases y aria, evita estilos inline
+  document.addEventListener('astro:page-load', function () {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (!mobileMenuButton || !mobileMenu) return;
+
+    const hamburgerLines = mobileMenuButton.querySelectorAll('.hamburger-line');
+    let isMenuOpen = false;
+
+    function openMenu() {
+      isMenuOpen = true;
+      mobileMenu.classList.add('open');
+      mobileMenuButton.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      mobileMenuButton.setAttribute('aria-expanded', 'true');
+      // lock scroll (account for possible scrollbar shift)
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      isMenuOpen = false;
+      mobileMenu.classList.remove('open');
+      mobileMenuButton.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      mobileMenuButton.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+
+    mobileMenuButton.addEventListener('click', function () {
+      if (isMenuOpen) closeMenu();
+      else openMenu();
+    });
+
+    // Cerrar menú al hacer clic en un enlace
+    const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function () {
+        closeMenu();
+      });
+    });
+
+    // Cerrar menú al hacer clic fuera de él
+    mobileMenu.addEventListener('click', function (e) {
+      if (e.target === mobileMenu) closeMenu();
+    });
+  });
+</script>
 
 <style>
   .menu {
-    display: flex;
-    gap: 1rem;
-  }
-  .navbar {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background-color: #fff;
-    backdrop-filter: blur(3px); /* Nivel de desenfoque */
-    background-color: rgba(255, 255, 255, 0.8);   
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    z-index: 1000; 
-    position: fixed;
-    top: 0;
-  }
-  .navbar-left {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #000;
-    text-decoration: none;
-  }
-  .navbar-right {
-    margin-left: 5%;
-    display: flex;
-    align-items: center;
+    display: none;
     gap: 1rem;
   }
 
+  @media (min-width: 768px) {
+    .menu {
+      display: flex;
+    }
+  }
+
+  .link {
+    transition: all 0.2s;
+    border: 2px solid transparent;
+    border-radius: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    position: relative;
+  }
+
+  .link:hover {
+    border-color: #60a5fa; /* blue-400 */
+    background: rgba(96, 165, 250, 0.08);
+    box-shadow: 0 2px 8px rgba(96, 165, 250, 0.15);
+  }
+
+  /* Focus visible accesible */
+  .link:focus-visible {
+    outline: 2px solid #60a5fa;
+    outline-offset: 3px;
+    border-radius: 0.5rem;
+  }
+
+  /* Estilos del botón hamburguesa */
+  .hamburger-line {
+    width: 22px;
+    height: 3px;
+    background-color: white;
+    transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    border-radius: 2px;
+  }
+
+  /* Transformaciones cuando está abierto */
+  #mobile-menu-button.open .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 4px);
+  }
+  #mobile-menu-button.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  #mobile-menu-button.open .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -4px);
+  }
+
+  /* Estilos del menú móvil */
+  .mobile-menu {
+    backdrop-filter: blur(10px);
+    will-change: transform, opacity;
+  }
+
+  .mobile-menu .mobile-link {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.35s ease-out forwards;
+  }
+
+  .mobile-menu .mobile-link:nth-child(1) { animation-delay: 0.08s; }
+  .mobile-menu .mobile-link:nth-child(2) { animation-delay: 0.16s; }
+  .mobile-menu .mobile-link:nth-child(3) { animation-delay: 0.24s; }
+  .mobile-menu .mobile-link:nth-child(4) { animation-delay: 0.32s; }
+  .mobile-menu .mobile-link:nth-child(5) { animation-delay: 0.40s; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Closed state (default) */
+  .mobile-menu { transform: translateY(-8%) scale(.98); opacity: 0; pointer-events: none; visibility: hidden; }
+
+  /* Open state */
+  .mobile-menu.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; visibility: visible; }
+
+  /* Botón hamburguesa interactivity */
+  #mobile-menu-button { transition: transform 0.18s ease-in-out; }
+  #mobile-menu-button:hover { transform: scale(1.06); }
+
+  /* Prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hamburger-line, .mobile-menu, .link, .mobile-menu .mobile-link {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
 </style>
