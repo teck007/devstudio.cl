@@ -7,7 +7,7 @@ const {
 
 <navbar class="navbar flex justify-center">
   <div id="navbar" class="fixed left-0 right-0 mx-auto max-w-3xl w-auto z-50 rounded-2xl backdrop-blur-md bg-gradient-to-br from-black/20 to-black/10 border border-white/10 shadow-lg">
-    <div class="navbar-inner flex items-center justify-between gap-6 w-full px-4 py-2">
+    <div class="navbar-inner flex items-center justify-center gap-6 w-full px-4 py-2">
 
       <!-- Menú desktop -->
       <nav class="menu hidden md:flex flex-1 justify-center gap-6">
@@ -49,7 +49,7 @@ const {
   });
 
   // Control del menú móvil — usa clases y aria, evita estilos inline
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('astro:page-load', function () {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     if (!mobileMenuButton || !mobileMenu) return;
