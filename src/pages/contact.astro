@@ -58,6 +58,11 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         ></textarea>
       </div>
+      <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+        <label for="website"></label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+      <input type="hidden" id="formTimestamp" name="formTimestamp" />
       <div id="message-container" class="mb-4 hidden"></div>
       <div class="flex justify-center">
         <button
@@ -79,12 +84,35 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
     const form = document.getElementById("contact") as HTMLFormElement;
     const btnSend = document.getElementById("btn-send") as HTMLButtonElement;
     const messageContainer = document.getElementById("message-container") as HTMLDivElement;
+    const formTimestamp = document.getElementById("formTimestamp") as HTMLInputElement;
+    
+    // Guardar timestamp cuando se carga el formulario
+    if (formTimestamp) {
+      formTimestamp.value = Date.now().toString();
+    }
     
     if (form && btnSend) {
       const originalText = btnSend.textContent;
       
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        
+        // Validación de tiempo mínimo en el cliente (3 segundos)
+        if (formTimestamp && formTimestamp.value) {
+          const loadTime = parseInt(formTimestamp.value, 10);
+          const timeSpent = Date.now() - loadTime;
+          const MIN_TIME_MS = 3000;
+          
+          if (timeSpent < MIN_TIME_MS) {
+            const remainingSeconds = Math.ceil((MIN_TIME_MS - timeSpent) / 1000);
+            if (messageContainer) {
+              messageContainer.textContent = `Por favor, espera ${remainingSeconds} segundo(s) antes de enviar.`;
+              messageContainer.className = 'mb-4 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-lg';
+              messageContainer.classList.remove("hidden");
+            }
+            return;
+          }
+        }
         
         btnSend.textContent = "Enviando...";
         btnSend.disabled = true;
