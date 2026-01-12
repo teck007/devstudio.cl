@@ -4,17 +4,18 @@ import { actions } from "astro:actions";
 const apiUrl = import.meta.env.PUBLIC_API_URL;
 ---
 
-<Layout title="Devstudio">
-  <div class="h-screen bg-main1 flex items-center justify-center">
+<Layout title="Contáctanos | DevStudio">
+  <div class="min-h-screen bg-gradient-to-br from-main1 via-main2 to-main1 flex items-center justify-center py-12 px-4">
     <form
       id="contact"
-      class="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg"
+      class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg border border-gray-100"
       action={actions.sendMessage}
       method="POST"
     >
-      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
-        Contáctanos
+      <h2 class="text-3xl font-bold text-gray-800 mb-2 text-center">
+        ¡Hablemos de tu proyecto!
       </h2>
+      <p class="text-gray-500 text-lg text-center mb-6">Cuéntanos tu idea y te responderemos lo más rápido posible.</p>
       <div class="mb-4">
         <label for="name" class="block text-gray-700 font-medium mb-2">
           Nombre y Apellido
@@ -54,7 +55,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
           required
           minlength="10"
           maxlength="1000"
-          placeholder="Escribe tu mensaje aquí. Ejemplo: Quiero un presupuesto para una página web"
+          placeholder="Cuéntanos sobre tu proyecto: ¿Qué necesitas? ¿Tienes una fecha límite? ¿Tienes alguna referencia de diseño?"
           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         ></textarea>
       </div>
@@ -67,7 +68,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
       <div class="flex justify-center">
         <button
           type="submit"
-          class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          class="bg-gradient-to-br from-main1 to-main2 hover:from-main1 hover:to-gray-800 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
           id="btn-send"
         >
           Enviar Mensaje
