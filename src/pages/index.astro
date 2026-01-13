@@ -14,8 +14,17 @@ import Card from "../components/Card.astro";
 
 <Layout title="DevStudio | Desarrollo de soluciones a tu medida">
 	<main
-		class="flex flex-col text-white justify-center mx-auto h-screen w-full bg-img relative"
+		class="flex flex-col text-white justify-center mx-auto h-screen w-full relative overflow-hidden"
 	>
+		<img 
+			src="/background.webp" 
+			alt="" 
+			class="absolute inset-0 w-full h-full object-cover object-top -z-10"
+			fetchpriority="high"
+			decoding="async"
+			width="1920"
+			height="1080"
+		/>
 		<div class="text-xl text-balance text-center me-[28vw] animate-fade-in-up">
 			<h1 class="pt-6 text-4xl md:text-7xl font-bold drop-shadow-lg">DevStudio</h1>
 			<p class="mt-4 text-2xl m-4 drop-shadow-md">
@@ -106,17 +115,6 @@ import Card from "../components/Card.astro";
 <style>
 	body {
 		background-color: white;
-	}
-
-	.bg-img {
-		background-image: url("background.webp");
-		background-size: cover;
-		background-position: top;
-	}
-	@media (max-height: 700px) or (max-width: 400px) {
-		#devImage {
-			display: none;
-		}
 	}
 	.animate-fade-in-up {
 		animation: fadeInUp 1s ease-out;
