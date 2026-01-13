@@ -13,15 +13,35 @@ const { title } = Astro.props;
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="DevStudio - Desarrollo web profesional e integraciones de Inteligencia Artificial. Creamos sitios web modernos, chatbots y automatizaciones que impulsan tu negocio." />
-		<meta name="keywords" content="desarrollo web, inteligencia artificial, chatbots, páginas web, aplicaciones web, Chile, startup tecnología" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta
+			name="description"
+			content="DevStudio - Desarrollo web profesional e integraciones de Inteligencia Artificial. Creamos sitios web modernos, chatbots y automatizaciones que impulsan tu negocio."
+		/>
+		<meta
+			name="keywords"
+			content="desarrollo web, inteligencia artificial, chatbots, páginas web, aplicaciones web, Chile, startup tecnología"
+		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<!-- Google Fonts - Outfit: moderna y distintiva -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+		<!-- Preconnect a recursos externos para mejorar LCP -->
+		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+		<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+		<!-- Google Fonts - Outfit: carga asíncrona para no bloquear renderizado -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+			media="print"
+			onload="this.media='all'"
+		/>
+		<noscript>
+			<link
+				rel="stylesheet"
+				href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+			/>
+		</noscript>
 		<title>{title}</title>
 		<ClientRouter />
 	</head>
@@ -54,7 +74,6 @@ const { title } = Astro.props;
 		<div class="min-h-screen flex flex-col">
 			<slot />
 		</div>
-		
 	</body>
 </html>
 <style is:global>
@@ -70,7 +89,7 @@ const { title } = Astro.props;
 		);
 	}
 	html {
-		font-family: 'Outfit', system-ui, sans-serif;
+		font-family: "Outfit", system-ui, sans-serif;
 		scroll-behavior: smooth;
 		width: 100%;
 		overflow-x: hidden;
@@ -78,8 +97,7 @@ const { title } = Astro.props;
 	body {
 		margin: 0;
 		padding: 0;
-		width: 100vw; 
-
+		width: 100vw;
 	}
 	code {
 		font-family:
