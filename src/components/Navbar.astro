@@ -37,16 +37,16 @@ const {
   </div>
 </navbar>
 <script>
-  // Efecto del menú al hacer scroll (añade/quita border)
-  window.addEventListener('scroll', function () {
-    const nav = document.getElementById('navbar');
-    if (!nav) return;
-    if (window.scrollY > 10) {
-      nav.classList.add('border-b-2', 'border-gray-600');
-    } else {
-      nav.classList.remove('border-b-2', 'border-gray-600');
-    }
-  });
+  // // Efecto del menú al hacer scroll (añade/quita border)
+  // window.addEventListener('scroll', function () {
+  //   const nav = document.getElementById('navbar');
+  //   if (!nav) return;
+  //   if (window.scrollY > 10) {
+  //     nav.classList.add('border-b-2', 'border-gray-600');
+  //   } else {
+  //     nav.classList.remove('border-b-2', 'border-gray-600');
+  //   }
+  // });
 
   // Control del menú móvil — usa clases y aria, evita estilos inline
   document.addEventListener('astro:page-load', function () {
