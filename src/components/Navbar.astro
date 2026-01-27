@@ -6,7 +6,7 @@ const {
 ---
 
 <navbar class="navbar flex justify-center">
-  <div id="navbar" class="fixed left-0 right-0 mx-auto max-w-3xl w-auto z-[100] rounded-2xl backdrop-blur-md bg-gradient-to-br from-black/20 to-black/10 border border-white/10 shadow-lg">
+  <div id="navbar" class="fixed left-0 right-0 mx-auto max-w-3xl w-full z-[100] rounded-2xl backdrop-blur-md bg-gradient-to-br from-black/20 to-black/10 border border-white/10 shadow-lg">
     <div class="navbar-inner flex items-center justify-center gap-6 w-full px-4 py-2">
 
       <!-- Menú desktop -->
@@ -66,11 +66,15 @@ const {
       // lock scroll (account for possible scrollbar shift)
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       const scrollY = window.scrollY;
+      const navbar = document.getElementById('navbar');
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = '100%';
       if (scrollbarWidth > 0) {
         document.body.style.paddingRight = `${scrollbarWidth}px`;
+        if (navbar) {
+          navbar.style.paddingRight = `${scrollbarWidth}px`;
+        }
       }
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
@@ -83,12 +87,16 @@ const {
       mobileMenu.setAttribute('aria-hidden', 'true');
       mobileMenuButton.setAttribute('aria-expanded', 'false');
       const scrollY = document.body.style.top;
+      const navbar = document.getElementById('navbar');
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
       document.documentElement.style.overflow = '';
+      if (navbar) {
+        navbar.style.paddingRight = '';
+      }
       if (scrollY) {
         window.scrollTo(0, parseInt(scrollY || '0') * -1);
       }
@@ -115,6 +123,11 @@ const {
 </script>
 
 <style>
+  #navbar {
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
   .menu {
     display: none;
     gap: 1rem;
