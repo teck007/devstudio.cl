@@ -27,21 +27,21 @@ import legadodefamilia from "../assets/images/legadodefamilia.webp"
 			alt="Fondo DevStudio, programador"
 			inferSize
 			aria-label="Imagen de fondo devstudio, programador" 
-			class="absolute inset-0 w-full h-full object-cover object-top -z-10 image-main"
+			class="absolute inset-0 w-full h-full object-cover object-top z-0 image-main"
 			fetchpriority="high"
 			loading="eager"
 			decoding="async"
 			priority
 
 		/>
-		<div class="text-xl text-balance text-center me-[28vw] animate-fade-in-up">
+		<div class="text-xl text-balance text-center me-[28vw] animate-fade-in z-10">
 			<h1 class="pt-6 text-4xl md:text-7xl font-bold drop-shadow-lg">DevStudio</h1>
 			<p class="mt-4 text-2xl m-4 drop-shadow-md">
 				Desarrollo de soluciones a tu medida.
 			</p>
 			<p class="text-lg mt-2 drop-shadow-sm text-cyan-300 font-semibold">Desarrollo web moderno</p>
 			<p class="text-lg mt-2 text-violet-300 font-semibold">Inteligencia artificial</p>
-			<a href="/contact" class="inline-block mt-8 px-8 py-4 rounded-full hover:bg-main1 border-2 text-white text-xl font-semibold shadow-lg transition-transform duration-300">Envianos un mensaje</a>
+			<a href="/contact" class="inline-block mt-8 px-8 py-4 rounded-full hover:bg-main1 border-2 text-white text-xl font-semibold shadow-lg animate-pulse hover:animate-fade-in">Envianos un mensaje</a>
 		</div>
 	</main>
 	<!-- About section -->
@@ -125,20 +125,6 @@ import legadodefamilia from "../assets/images/legadodefamilia.webp"
 <style>
 	body {
 		background-color: white;
-	}
-
-	/* Animación ajustada: solo transformación (no opacity) para no retrasar LCP */
-	.animate-fade-in-up {
-		animation: fadeInUp 0.35s cubic-bezier(.2,.8,.2,1) both;
-		will-change: transform;
-	}
-	@keyframes fadeInUp {
-		from {
-			transform: translateY(8px);
-		}
-		to {
-			transform: translateY(0);
-		}
 	}
 	
 	/* Estilos para placeholder y la imagen principal (se mantiene compatibilidad con el placeholder) */
