@@ -33,11 +33,6 @@ import legadodefamilia from "../assets/images/legadodefamilia.webp";
 			decoding="async"
 			priority
 		/>
-		<!-- Degradado inferior -->
-		<div
-			class="absolute bottom-0 left-0 w-full h-40 z-10 bg-gradient-to-b from-transparent to-main1"
-		>
-		</div>
 		<div
 			class="text-xl text-balance text-center me-[28vw] animate-fade-in z-10"
 		>
@@ -158,6 +153,7 @@ import legadodefamilia from "../assets/images/legadodefamilia.webp";
 	.image-main {
 		opacity: 1; /* no partir en 0 para que el LCP no se retrase */
 		transition: opacity 0.5s ease-in;
+		mask-image: linear-gradient(to top, transparent, black 30%);
 	}
 
 	.image-main.loaded {
