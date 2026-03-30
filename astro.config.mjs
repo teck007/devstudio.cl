@@ -9,6 +9,12 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
+  security: {
+    allowedDomains: [
+      { hostname: 'devstudio.cl', protocol: 'https' },
+      { hostname: 'www.devstudio.cl', protocol: 'https' },
+    ],
+  },
   vite: {
     resolve: {
       alias: {
