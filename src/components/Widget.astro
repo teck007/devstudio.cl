@@ -16,13 +16,16 @@ const {
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {
-                items.map((item) => (
-                    <div class="widget-item bg-main1 rounded-lg p-6 shadow hover:shadow-lg transition-all duration-300 border-full border-2 border-x-main2 border-y-main2">
-                        <div class="text-xl font-semibold mb-4 flex">
-                            {item.icon ? <item.icon /> : null} 
-                            <span class="ml-2">{item.title}</span>
+                items.map((item, index) => (
+                    <div class="widget-item group bg-gradient-to-br from-main2/50 to-main1 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-cyan-500/20 hover:border-cyan-400/40 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="relative z-10">
+                            <div class="text-xl font-semibold mb-4 flex items-center">
+                                <span class="text-cyan-400">{item.icon ? <item.icon /> : null}</span>
+                                <span class="ml-3">{item.title}</span>
+                            </div>
+                            <p class="text-gray-300 text-lg leading-relaxed">{item.description}</p>
                         </div>
-                        <p class="text-gray-200 text-xl">{item.description}</p>
                     </div>
                 ))
             }

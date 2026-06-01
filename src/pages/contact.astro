@@ -4,20 +4,21 @@ import { actions } from "astro:actions";
 const apiUrl = import.meta.env.PUBLIC_API_URL;
 ---
 
-<Layout title="Devstudio">
-  <div class="h-screen bg-main1 flex items-center justify-center">
+<Layout title="Contáctanos | DevStudio">
+  <div class="min-h-screen bg-gradient-to-br from-main1 via-main2 to-main1 flex items-center justify-center py-12 px-4 animate-scale">
     <form
       id="contact"
-      class="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg"
+      class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg border border-gray-100"
       action={actions.sendMessage}
       method="POST"
     >
-      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
-        Contáctanos
+      <h2 class="text-3xl font-bold text-gray-800 mb-2 text-center">
+        ¡Hablemos de tu proyecto!
       </h2>
+      <p class="text-gray-500 text-lg text-center mb-6">Cuéntanos tu idea y te responderemos lo más rápido posible.</p>
       <div class="mb-4">
         <label for="name" class="block text-gray-700 font-medium mb-2">
-          Nombre
+          Nombre y Apellido
         </label>
         <input
           type="text"
@@ -39,7 +40,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
           id="email"
           name="email"
           required
-          placeholder="tu@correo.com"
+          placeholder="nombre@correo.com"
           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
@@ -54,15 +55,20 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
           required
           minlength="10"
           maxlength="1000"
-          placeholder="Escribe tu mensaje aquí"
+          placeholder="Cuéntanos sobre tu proyecto: ¿Qué necesitas? ¿Tienes una fecha límite? ¿Tienes alguna referencia de diseño?"
           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         ></textarea>
       </div>
+      <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+        <label for="website"></label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+      <input type="hidden" id="formTimestamp" name="formTimestamp" />
       <div id="message-container" class="mb-4 hidden"></div>
       <div class="flex justify-center">
         <button
           type="submit"
-          class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          class="bg-gradient-to-br from-main1 to-main2 hover:from-main1 hover:to-gray-800 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
           id="btn-send"
         >
           Enviar Mensaje
@@ -79,12 +85,35 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
     const form = document.getElementById("contact") as HTMLFormElement;
     const btnSend = document.getElementById("btn-send") as HTMLButtonElement;
     const messageContainer = document.getElementById("message-container") as HTMLDivElement;
+    const formTimestamp = document.getElementById("formTimestamp") as HTMLInputElement;
+    
+    // Guardar timestamp cuando se carga el formulario
+    if (formTimestamp) {
+      formTimestamp.value = Date.now().toString();
+    }
     
     if (form && btnSend) {
       const originalText = btnSend.textContent;
       
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        
+        // Validación de tiempo mínimo en el cliente (3 segundos)
+        if (formTimestamp && formTimestamp.value) {
+          const loadTime = parseInt(formTimestamp.value, 10);
+          const timeSpent = Date.now() - loadTime;
+          const MIN_TIME_MS = 3000;
+          
+          if (timeSpent < MIN_TIME_MS) {
+            const remainingSeconds = Math.ceil((MIN_TIME_MS - timeSpent) / 1000);
+            if (messageContainer) {
+              messageContainer.textContent = `Por favor, espera ${remainingSeconds} segundo(s) antes de enviar.`;
+              messageContainer.className = 'mb-4 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-lg';
+              messageContainer.classList.remove("hidden");
+            }
+            return;
+          }
+        }
         
         btnSend.textContent = "Enviando...";
         btnSend.disabled = true;
@@ -127,3 +156,11 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
   }
   document.addEventListener("astro:page-load", init_form);
 </script>
+
+<style is:inline>
+  #message{
+    field-sizing: content;
+    resize: none;
+    min-height: 100px;
+  }
+</style>

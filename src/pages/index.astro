@@ -10,59 +10,91 @@ import computer from "../assets/icons/computer.astro";
 import learning from "../assets/icons/learning.astro";
 import Services from "../components/Slide.astro";
 import Card from "../components/Card.astro";
+import { Image } from "astro:assets";
+import background from "../assets/images/background.webp";
+import slide1 from "../assets/images/slide1.webp";
+import slide2 from "../assets/images/slide2.webp";
+import slide3 from "../assets/images/slide3.webp";
+import legadodefamilia from "../assets/images/legadodefamilia.webp";
 ---
 
-<Layout title="Devstudio">
+<Layout title="DevStudio | Desarrollo de soluciones a tu medida">
 	<main
-		class="flex flex-col text-white justify-center mx-auto h-screen w-full bg-img relative"
+		class="flex flex-col text-white justify-center mx-auto h-screen w-full relative overflow-hidden bg-main1 z-30"
 	>
-		<div class="text-xl text-balance text-center me-[28vw] animate-fade-in-up">
-			<h1 class="pt-6 text-4xl md:text-7xl font-bold drop-shadow-lg">DevStudio</h1>
+		<link rel="preload" href={background.src} as="image" />
+		<Image
+			src={background}
+			alt="Fondo DevStudio, programador"
+			inferSize
+			aria-label="Imagen de fondo devstudio, programador"
+			class="absolute inset-0 w-full h-full object-cover object-top z-0 image-main"
+			fetchpriority="high"
+			loading="eager"
+			decoding="sync"
+			priority
+		/>
+		<div
+			class="text-xl text-balance text-center me-0 md:me-[28vw] animate-fade-in z-10"
+		>
+			<h1 class="pt-6 text-4xl md:text-7xl font-bold drop-shadow-lg">
+				DevStudio
+			</h1>
 			<p class="mt-4 text-2xl m-4 drop-shadow-md">
 				Desarrollo de soluciones a tu medida.
 			</p>
-			<a href="/contact" class="inline-block mt-8 px-8 py-4 rounded-full hover:bg-main1 hover:animate-none border-2 text-white text-xl font-semibold shadow-lg transition-all duration-300 animate-pulse">Envianos un mensaje</a>
+			<p class="text-lg mt-2 drop-shadow-sm text-cyan-300 font-semibold">
+				Desarrollo web moderno
+			</p>
+			<p class="text-lg mt-2 text-violet-300 font-semibold">
+				Inteligencia artificial
+			</p>
+			<a
+				href="/contact"
+				class="inline-block mt-8 px-8 py-4 rounded-full hover:bg-main1 border-2 text-white text-xl font-semibold shadow-lg animate-pulse hover:animate-fade-in"
+				>Envianos un mensaje</a
+			>
 		</div>
 	</main>
 	<!-- About section -->
 	<About
-		title="Nuestra identidad"
-		description="Somos una startup de desarrollo de software formada por jóvenes apasionados por la tecnología, la creatividad y la solución de problemas del mundo real. Cada integrante aporta su experiencia única, desde el backend hasta el diseño, trabajando en un ambiente dinámico y de colaboración continua."
+		title="Nosotros"
+		description="Somos un equipo especializado en desarrollo web. Combinamos creatividad, experiencia técnica y las últimas tecnologías para crear soluciones digitales que realmente impacten en tu negocio."
 		items={[
 			{
-				title: "Innovación y creatividad",
+				title: "Desarrollo web a medida",
 				description:
-					"Desarrollamos soluciones únicas e innovadoras que transforman desafíos complejos en oportunidades de crecimiento.",
-				icon: lightIcon,
-			},
-			{
-				title: "Nuevas tecnologías",
-				description:
-					"Nos actualizamos con rapidez a las nuevas tendencias y tecnologías, incluyendo inteligencia artificial en nuestras soluciones.",
-				icon: handIcon,
-			},
-			{
-				title: "Cultura colaborativa",
-				description:
-					"Fomentamos un entorno de trabajo en equipo donde cada miembro aporta su experiencia y creatividad.",
-				icon: usersIcon,
-			},
-			{
-				title: "Orientación al cliente",
-				description:
-					"Diseñamos productos y servicios centrados en las necesidades reales de los usuarios.",
-				icon: userCircle,
-			},
-			{
-				title: "Tecnología moderna",
-				description:
-					"Utilizamos frameworks de última generación, arquitecturas escalables y servicios en la nube para construir soluciones robustas.",
+					"Creamos sitios web y aplicaciones personalizadas para negocio y deacuerdo a tus necesidades.",
 				icon: computer,
 			},
 			{
-				title: "Aprendizaje continuo",
+				title: "Integraciones de IA",
 				description:
-					"Mantenemos un compromiso constante con la actualización, adaptándonos a un sector en evolución permanente.",
+					"Incorporamos chatbots, automatizaciones y herramientas de IA que optimizen procesos y mejoren la experiencia de tus clientes.",
+				icon: lightIcon,
+			},
+			{
+				title: "Resultados reales",
+				description:
+					"Nos enfocamos en que puedas obtener una mejor presencia digital y mejorar procesos internos de tu negocio.",
+				icon: handIcon,
+			},
+			{
+				title: "Atención personalizada",
+				description:
+					"Trabajamos en equipo en cada etapa del proyecto, asegurando que el resultado final supere tus expectativas y cumpla con tus objetivos.",
+				icon: userCircle,
+			},
+			{
+				title: "Tecnología de vanguardia",
+				description:
+					"Utilizamos frameworks modernos y las mejores prácticas para garantizar velocidad, seguridad y escalabilidad.",
+				icon: usersIcon,
+			},
+			{
+				title: "Soporte continuo",
+				description:
+					"No te dejamos solo después del lanzamiento. Ofrecemos mantenimiento, actualizaciones y mejoras constantes.",
 				icon: learning,
 			},
 		]}
@@ -72,63 +104,64 @@ import Card from "../components/Card.astro";
 		title="Nuestros servicios"
 		items={[
 			{
-				imagen_url: "Slide1.webp",
-				texto: "Diseñamos y desarrollamos sitios web personalizados que potencien tu presencia digital.",
+				imagen_url: slide1,
+				texto: "Páginas web modernas: Creamos diseños atractivos con las últimas tecnologías para que tu negocio se destaque en el mercado.",
 			},
 			{
-				imagen_url: "Slide2.webp",
-				texto: "Utilizamos las últimas tecnologías para crear soluciones web rápidas, seguras y escalables.",
+				imagen_url: slide2,
+				texto: "Inteligencia Artificial aplicada: chatbots personalizados, automatización de tareas y asistentes virtuales que trabajan 24/7.",
 			},
 			{
-				imagen_url: "Slide3.webp",
-				texto: "Transformamos tu visión en realidad: desde el concepto hasta el lanzamiento, tu proyecto en línea está en buenas manos.",
+				imagen_url: slide3,
+				texto: "Desarrollo completo: desde una landing page informativa hasta sistemas complejos con paneles de administración y APIs integradas para que tu negocio funcione de manera eficiente.",
 			},
 		]}
 	/>
 
 	<!-- Portfolio section -->
 	<section id="portfolio" class="w-full mx-auto px-6 py-16 bg-main1">
-		<h2 class="text-4xl text-center font-bold text-white mb-6">Portafolio</h2>
-		<p class="text-center text-xl text-gray-200 mb-8">Aquí mostramos los proyectos que hemos realizado.</p>
-		<ul class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6  mx-auto max-w-[80%]">
-			<!-- Usamos el componente Card para una sola tarjeta que enlaza a /portfolio -->
+		<h2 class="text-4xl text-center font-bold text-white mb-6">
+			Proyectos
+		</h2>
+		<p class="text-center text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
+			Conoce algunos de nuestros proyectos.
+		</p>
+		<ul
+			class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mx-auto max-w-[80%]"
+		>
 			<Card
 				href="https://legadodefamilia.cl"
-				title="Pagina web fundación legado de familia"
-				description="Sitio web, diseño y desarrollo completo. Se creo un panel administrable."
-				image="legadodefamilia.webp"
-				techs={["Astro", "Tailwind", "Laravel"]}
+				title="Fundación Legado de Familia"
+				description="Diseño y desarrollo completo con panel administrable para gestionar contenido dinámicamente."
+				image={legadodefamilia}
 			/>
 		</ul>
 	</section>
 	<Footer />
 </Layout>
+
 <style>
 	body {
 		background-color: white;
 	}
 
-	.bg-img {
-		background-image: url("background.webp");
-		background-size: cover;
-		background-position: top;
+	/* Estilos para placeholder y la imagen principal (se mantiene compatibilidad con el placeholder) */
+	.image-placeholder {
+		opacity: 1;
+		transition: opacity 0.5s ease-out;
 	}
-	@media (max-height: 700px) or (max-width: 400px) {
-		#devImage {
-			display: none;
-		}
+
+	.image-main {
+		opacity: 1; /* no partir en 0 para que el LCP no se retrase */
+		transition: opacity 0.5s ease-in;
+		mask-image: linear-gradient(to top, transparent, black 30%);
 	}
-	.animate-fade-in-up {
-		animation: fadeInUp 1s ease-out;
+
+	.image-main.loaded {
+		opacity: 1;
 	}
-	@keyframes fadeInUp {
-		from {
-			opacity: 0;
-			transform: translateY(40px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
+
+	.image-placeholder.hidden {
+		opacity: 0;
 	}
 </style>
